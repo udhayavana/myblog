@@ -2,7 +2,7 @@ html {
   --section-background-color: linear-gradient(
     to bottom left,
     rgba(28, 141, 161, 0.459),
-    rgba(201, 50, 87, 0.4)
+  rgba(201, 50, 87, 0.4)
   );
 
   --image-gradient: linear-gradient(
@@ -13,12 +13,6 @@ html {
 
   --imp-text-color: #3023a5;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
 
 .purple {
   color: var(--imp-text-color) !important;
@@ -38,7 +32,7 @@ button:focus {
   width: 100%;
   height: 100%;
   z-index: 999999;
-  background-color: #d3245e;
+  background-color: #0c0513;
   background-image: url(./Assets/pre.svg);
   background-repeat: no-repeat;
   background-position: center;
@@ -82,7 +76,7 @@ button:focus {
 /* Navbar Section  */
 /* --------- */
 .sticky {
-  background-color: rgba(165, 35, 80,0.5) !important;
+  background-color: rgb(118 193 231 / 50%) !important;
   transition: all 0.3s ease-out 0s !important;
   box-shadow: 0px 10px 10px 0px rgba(9, 5, 29, 0.171) !important;
   backdrop-filter: blur(15px) !important;
@@ -263,8 +257,7 @@ button:focus {
 .home-section {
   position: relative;
   z-index: -1;
-  background-image: var(--image-gradient);
-  /* url(./Assets/home-bg.jpg) */
+  background-image: var(--image-gradient), url(./Assets/home-bg.jpg);
   background-position: top center;
   background-repeat: no-repeat;
   padding-bottom: 30px !important;
@@ -325,14 +318,12 @@ button:focus {
 }
 
 .home-about-section {
- /* background-image: var(--image-gradient);*/
   position: relative;
   padding-bottom: 70px !important;
   padding-top: 70px !important;
 }
 
 .home-about-description {
-
   color: rgb(92, 88, 88) !important;
   padding-top: 100px !important;
   padding-bottom: 20px !important;
@@ -616,7 +607,7 @@ button:focus {
   padding-top: 110px !important;
   padding-bottom: 30px !important;
  /* background-image: var(--section-background-color) !important;*/
-  color: white !important;
+  color: rgb(241, 42, 118) !important;
 }
 
 .resume {

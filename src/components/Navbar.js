@@ -24,7 +24,7 @@ function NavBar() {
     if (window.scrollY >= 20) {
       updateNavbar(true);
     } else {
-      updateNavbar(false);
+      updateNavbar(true);
     }
   }
 

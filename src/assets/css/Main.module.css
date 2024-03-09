@@ -1,0 +1,17 @@
+.homePage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.homePage h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.homePage p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+}

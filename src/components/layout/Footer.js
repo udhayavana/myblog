@@ -5,16 +5,17 @@ function Footer() {
     <footer className={footerStyles.footer}>
       <ul className={footerStyles.footerLinks}>
         <li>
-          <a>Privacy Policy</a>
+          <a href="#">Privacy Policy</a>
         </li>
         <li>
-          <a>Terms of Use</a>
+          <a href="#">Terms of Use</a>
         </li>
         <li>
-          <a>Contact Us</a>
+          <a href="#">Contact Us</a>
         </li>
       </ul>
-      <p className={footerStyles.footerText}>© 2023 My Company. All rights reserved.
+      <p className={footerStyles.footerText}>
+        © 2023 My Company. All rights reserved.
       </p>
     </footer>
   );

@@ -4,15 +4,9 @@ function Footer() {
   return (
     <footer className={footerStyles.footer}>
       <ul className={footerStyles.footerLinks}>
-        <li>
-          <a href="#">Privacy Policy</a>
-        </li>
-        <li>
-          <a href="#">Terms of Use</a>
-        </li>
-        <li>
-          <a href="#">Contact Us</a>
-        </li>
+        <li>Privacy Policy</li>
+        <li>Terms of Use</li>
+        <li>Contact Us</li>
       </ul>
       <p className={footerStyles.footerText}>
         © 2023 My Company. All rights reserved.

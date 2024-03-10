@@ -20,7 +20,7 @@ function App() {
         <div className="App" id={load ? "no-scroll" : "scroll"}>
         <Routes>
           <Route path="/" element={<Home />}></Route>
-          <Route path="/about" element={<About />}></Route>
+          <Route path="/resume" element={<About />}></Route>
         </Routes>
         </div>
         </Router>

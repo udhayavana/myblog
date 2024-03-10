@@ -2,9 +2,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  background-color: #333;
-  color: #fff;
+  z-index: 1;
+  position: fixed !important;
+  transition: all 0.3s ease-out 0s !important;
+  padding: 0.3rem 2rem !important;
+  font-size: 1.2rem !important;
+  float: right;
+  width: 100%;
+  background-image: var(--image-gradient);
+  
 }
 
 .logo img {
@@ -15,14 +21,20 @@
 .navLinks {
   display: flex;
   list-style: none;
+  padding: 5px;
 }
 
 .navLinks li {
   margin-right: 1rem;
+  border: 1px solid;
+  padding: 7px;
+  color: #fff;
 }
 
+.navLinks li.active{
+  background-color: mediumvioletred;
+}
 .navLinks a {
-  color: #fff;
   text-decoration: none;
 }
 

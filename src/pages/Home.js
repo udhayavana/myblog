@@ -7,8 +7,8 @@ function Home(props) {
   return (
     <>
       <Navbar />
-      <div>
-        <div className={mainStyles.homePage}>
+      <div className={mainStyles.homePage}>
+        <div className={mainStyles.homeContent}>
           <h1>Welcome to my website</h1>
           <p>
             This is the home page of my website

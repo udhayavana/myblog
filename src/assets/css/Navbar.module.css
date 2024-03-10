@@ -2,53 +2,25 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 1;
-  position: fixed !important;
-  transition: all 0.3s ease-out 0s !important;
-  padding: 0.3rem 2rem !important;
-  font-size: 1.2rem !important;
-  float: right;
-  width: 100%;
-  background-image: var(--image-gradient);
-  
+  padding: 1rem;
+  background-color: #333;
+  color: #fff;
 }
 
 .logo img {
   height: 50px;
-  pointer-events: none;
 }
 
 .navLinks {
   display: flex;
   list-style: none;
-  padding: 5px;
 }
 
 .navLinks li {
   margin-right: 1rem;
-  border: 1px solid;
-  padding: 7px;
-  color: #fff;
 }
 
-.navLinks li.active{
-  background-color: mediumvioletred;
-}
 .navLinks a {
+  color: #fff;
   text-decoration: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

@@ -1,24 +1,9 @@
-* {
-  --section-background-color: linear-gradient(
-    to bottom left,
-    rgba(28, 141, 161, 0.459),
-  rgba(201, 50, 87, 0.4)
-  );
-
-  --image-gradient: linear-gradient(
-    to bottom left,
-    rgba(28, 141, 161, 0.459),
-  rgba(201, 50, 87, 0.4)
-  );
-  --imp-text-color: #3023a5;
-}
 .homePage {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 2rem;
   text-align: center;
-  background-image: var(--section-background-color);
 }
 
 .homePage h1 {
@@ -29,27 +14,4 @@
 .homePage p {
   font-size: 1.2rem;
   line-height: 1.5;
-}
-
-.homeSection {
-  position: relative;
-  z-index: -1;
-  padding-bottom: 30px !important;
-  padding-top: 30px !important;
-  background-image: var(--section-background-color);
-}
-
-.homeContent {
-  padding: 9rem 0 2rem !important;
-  color: rgb(245, 233, 233);
-  text-align: left;
-}
-
-
-.resumeSection {
-  position: relative !important;
-  padding-top: 110px !important;
-  padding-bottom: 30px !important;
- /* background-image: var(--section-background-color) !important;*/
-  color: rgb(241, 42, 118) !important;
 }

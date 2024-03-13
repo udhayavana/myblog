@@ -6,10 +6,19 @@ const TypeWriter = ({text,delay}) => {
     const [currentInd,setCurrentInd]=useState(0);
 
     useEffect(() => {
-        if (currentInd < text.length) {
-          const timeout = setTimeout(() => {
-            setCurrentText(prevText => prevText + text[currentInd]);
-            setCurrentInd(prevIndex => prevIndex + 1);
+        let changingText=text;
+        if (currentInd <= changingText.length) {
+            const timeout = setTimeout(() => {
+            if(text[currentInd]===","){
+              setCurrentText("");
+              setCurrentInd(prevIndex => prevIndex + 1);
+              changingText=changingText.slice(currentInd+1);
+              console.log(changingText);
+            }
+            else{
+              setCurrentText(prevText => prevText + changingText[currentInd]);
+              setCurrentInd(prevIndex => prevIndex + 1);
+            }
           }, delay);
       
           return () => clearTimeout(timeout);

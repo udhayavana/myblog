@@ -11,8 +11,8 @@ function Home(props) {
       <Navbar />
       <div className={mainStyles.homePage}>
         <div className={mainStyles.homeContent}>
-          <span>Blog about by career built in
-          <TypeWriter text=" React Js,Bootstrap" delay={200} /></span>
+          <h2>Hello, I am Udhayavanan</h2>
+          <span><TypeWriter text="Technical lead,Scrum Master,Senior web developer" delay={200} /></span>
         </div>
       </div>
       <Footer />

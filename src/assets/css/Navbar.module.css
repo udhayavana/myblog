@@ -5,6 +5,8 @@
   padding: 1rem;
   background-color: #333;
   color: #fff;
+  border-bottom: 2px cyan;
+  border-bottom-style: inset;
 }
 
 .logo img {

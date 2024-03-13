@@ -12,7 +12,7 @@ function Home(props) {
       <div className={mainStyles.homePage}>
         <div className={mainStyles.homeContent}>
           <h2>Hello, I am Udhayavanan</h2>
-          <span><TypeWriter text="Technical lead,Scrum Master,Senior web developer" delay={200} /></span>
+          <span style={{color:"cyan"}}><TypeWriter text="Technical lead,Scrum Master,Senior web developer" delay={200} /></span>
         </div>
       </div>
       <Footer />

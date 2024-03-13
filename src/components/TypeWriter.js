@@ -13,11 +13,15 @@ const TypeWriter = ({text,delay}) => {
               setCurrentText("");
               setCurrentInd(prevIndex => prevIndex + 1);
               changingText=changingText.slice(currentInd+1);
-              console.log(changingText);
             }
             else{
-              setCurrentText(prevText => prevText + changingText[currentInd]);
-              setCurrentInd(prevIndex => prevIndex + 1);
+			  if( changingText[currentInd] === " "){
+				  setCurrentText(prevText => prevText + changingText[currentInd] + `\u2003`);
+			  }
+			  else{
+              setCurrentText(prevText => prevText + changingText[currentInd] + `\u2002`);
+              }
+			  setCurrentInd(prevIndex => prevIndex + 1);
             }
           }, delay);
       

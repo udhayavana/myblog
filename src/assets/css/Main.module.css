@@ -3,6 +3,7 @@
   flex-direction: column;
   padding: 2rem;
   min-height: calc(100vh - 160px);
+  background-color:#333;
 }
 
 .homePage h1 {
@@ -14,3 +15,9 @@
   font-size: 1.2rem;
   line-height: 1.5;
 }
+
+
+h2{
+	color:#FCFBF4;
+	
+}	

@@ -22,6 +22,12 @@
   margin-right: 1rem;
 }
 
+.navLinks {
+  .active a{
+    color:cyan;
+  }
+}
+
 .navLinks a {
   color: #fff;
   text-decoration: none;

@@ -13,7 +13,7 @@ function Footer() {
         <li>Contact Us</li>
       </ul>
       <p className={footerStyles.footerText} style={{float:"right"}}>
-        © {year} My Blog.
+        Designed & developed by udhayavanan sambath copy right © {year} My Blog.
       </p>
     </footer>
   );

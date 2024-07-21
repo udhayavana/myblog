@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import mainStyles from "../assets/css/Main.module.css";
 import Footer from "../components/layout/Footer";
 import Navbar from "../components/layout/Navbar";
-import pdf from "../assets/pdfs/updated_resume_25_feb.pdf";
+import pdf from "../assets/pdfs/UpdatedResumeReact.pdf";
 import { AiOutlineDownload } from "react-icons/ai";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";

@@ -26,7 +26,7 @@ function Navbar(props) {
       <Link to="/resume">My Resume</Link>
       </li>
       <li className={`${todoClass}`}>
-      <Link to="/todo">Todo</Link>
+      <Link to="/todo">My Playground</Link>
       </li>
     </ul>
     </nav>

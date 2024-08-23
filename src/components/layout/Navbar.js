@@ -10,6 +10,7 @@ function Navbar(props) {
   const homeClass = location.pathname === "/" ? `${NavbarStyles.active}` : "";
   // const portfolioClass = location.pathname.match(/^\/portfolio/) ? `${NavbarStyles.active}` : "";
   const resumeClass = location.pathname.match(/^\/resume/) ? `${NavbarStyles.active}` : "";
+  const todoClass = location.pathname.match(/^\/todo/) ? `${NavbarStyles.active}` : "";
 
   return (
     <nav className={NavbarStyles.navbar}>
@@ -23,6 +24,9 @@ function Navbar(props) {
       </li>
       <li className={`${resumeClass}`}>
       <Link to="/resume">My Resume</Link>
+      </li>
+      <li className={`${todoClass}`}>
+      <Link to="/todo">Todo</Link>
       </li>
     </ul>
     </nav>

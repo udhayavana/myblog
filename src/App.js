@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Portfolio from "./pages/Portfolio";
+import Todo from "./pages/Todo";
 
 function App() {
   
@@ -23,6 +24,7 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/portfolio" element={<Portfolio />}></Route>
           <Route path="/resume" element={<About />}></Route>
+          <Route path="/todo" element={<Todo />}></Route>
         </Routes>
         </div>
         </Router>

@@ -1,34 +1,46 @@
-import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import { useState, useEffect } from "react";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Portfolio from "./pages/Portfolio";
-import Todo from "./pages/Todo";
 
-function App() {
-  
-  const [load, upadateLoad] = useState(true);
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
+import './template/css/slick.css';
+import './template/css/tooplate-simply-amazed.css';
+import 'bootstrap/dist/js/bootstrap.js';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+import About from './pages/About';
+import Home from './pages/Home';
+import Counter from './pages/Counter';
+import Navbar from './components/Navbar';
+import ContainerBgImage from './template/images/body-bg-1.png';
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      upadateLoad(false);
-    }, 1200);
+const App = () => {
 
-    return () => clearTimeout(timer);
-  }, []);
-
-  return (   
-        <Router>
-        <div className="App" id={load ? "no-scroll" : "scroll"}>
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/portfolio" element={<Portfolio />}></Route>
-          <Route path="/resume" element={<About />}></Route>
-          <Route path="/todo" element={<Todo />}></Route>
-        </Routes>
-        </div>
-        </Router>
+  return (
+    <div id='outer' style={{backgroundImage:`url(${ContainerBgImage})`,backgroundSize:'cover'}}>
+      <Router>
+       <header className="header order-last" id="tm-header">
+        <Navbar/>
+       </header>
+       <button className="navbar-button collapsed" type="button">
+            <span className="menu_icon">
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+            </span>
+        </button>
+        <main id="content-box" class="order-first">
+      <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/counter" element={<Counter />} />
+      </Routes>
+      </main>
+    </Router>
+  </div>
   );
-}
+};
 
 export default App;

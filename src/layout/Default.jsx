@@ -25,8 +25,8 @@ const Default = () => {
         <nav id="navmenu" className="navmenu">
           <ul>
             <li><Link className="" to='/'><i className="bi bi-house navicon" />Home</Link></li>
-            <li><Link to='/profile'><i className="bi bi-person navicon"></i>About</Link></li>
-            <li><Link to='/resume'><i className="bi bi-file-earmark-text navicon"></i>Resume</Link></li>
+            <li><Link to='/about'><i className="bi bi-person navicon"></i>About</Link></li>
+            <li><Link to='/profile'><i className="bi bi-file-earmark-text navicon"></i>Profile</Link></li>
             <li><Link to='/to-do'><i className="bi bi-images navicon"></i>To do</Link></li>
           </ul>
         </nav>

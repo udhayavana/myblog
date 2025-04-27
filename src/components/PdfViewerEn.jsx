@@ -3,11 +3,15 @@ import { Document , Page , pdfjs } from 'react-pdf';
 import { Viewer, Worker } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
-import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
-// Worker setup for Vite
 
-function PdfViewer({pdfUrl}) {
-  const [numPages, setNumPages] = useState(null);
+// Worker setup for Vite
+import pdfWorker from 'pdfjs-dist/build/pdf.worker?url';
+
+pdfjs.GlobalWorkerOptions.workerSrc = pdfWorker;
+
+function PdfViewerEn({pdfUrl}) {
+  
+    const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
 
   function onDocumentLoadSuccess({ numPages }) {
@@ -18,10 +22,10 @@ function PdfViewer({pdfUrl}) {
     
      <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.15.349/build/pdf.worker.min.js">
       <div style={{ height: '750px' }}>
-        <Viewer fileUrl={pdfUrl} plugins={[defaultLayoutPlugin]} />
+        <Viewer fileUrl={pdfUrl} />
       </div>
     </Worker>
   );
 }
 
-export default PdfViewer;
+export default PdfViewerEn;

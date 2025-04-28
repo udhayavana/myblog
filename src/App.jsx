@@ -4,6 +4,7 @@ import Default from './layout/Default';
 import About from './pages/About';
 import Todo from './pages/Todo';
 import Profile from'./pages/Profile';
+import Weather from './pages/Weather';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="about" element={<About/> } />
         <Route path="to-do" element={<Todo/> } />
         <Route path="profile" element={<Profile/> } />
+        <Route path="weather" element={<Weather/> } />
       </Route>
      </Routes>
     </BrowserRouter>

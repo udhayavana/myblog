@@ -1,11 +1,56 @@
 import { Outlet, Link } from "react-router";
 import logo from '../img/my-profile-img.jpg';
+import { useEffect , useState , useRef } from "react";
 const Default = () => {
+
+  const toggleRef = useRef(null);
+  const menuNavRef = useRef(null);
+  const [isMenuOpen,setMenuOpen]=useState(true);
+  const [isNavOpen,setNavOpen]=useState(false);
+
+  const handleToggle = () => {
+    setNavOpen( prev => !prev);
+    setMenuOpen(prev => !prev); 
+  };
+
+  useEffect(() => {
+    
+    if (toggleRef.current) {
+      const styles = window.getComputedStyle(toggleRef.current);
+      const displayStyle=styles.display;
+      if(displayStyle!=='none'){
+        if (menuNavRef.current) {
+           setMenuOpen(false); 
+        }
+      }
+    }
+
+    const handleResize = () => {
+      
+      const styles = window.getComputedStyle(toggleRef.current);
+      const displayStyle=styles.display;
+      if(displayStyle!=='none'){
+        if (menuNavRef.current) {
+           setMenuOpen(false); 
+           setNavOpen(false);
+        }
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Initial check in case window size changed before mounting
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <>
-      <header id="header" className="header dark-background d-flex flex-column">
-        <i className="header-toggle d-xl-none bi bi-list"></i>
+      <header id="header" ref={menuNavRef} className={`header dark-background d-flex flex-column ${isMenuOpen ? 'header-show' : ''}`}>
+        <i ref={toggleRef} onClick = {handleToggle} className={`header-toggle d-xl-none bi ${isNavOpen ? 'bi-x' : 'bi-list'}` } ></i>
         <div className="profile-img">
           <img src={logo} alt="" className="img-fluid square" />
         </div>

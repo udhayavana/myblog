@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { GoogleMap, LoadScript, Marker, Circle, Autocomplete } from '@react-google-maps/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const GoogleMapComponent = () => {
+const GoogleMapComponent = ({propMapClick}) => {
   
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [mapCenter, setMapCenter] = useState({ lat: 20.5937, lng: 78.9629 }); // Default India
@@ -76,7 +76,7 @@ const GoogleMapComponent = () => {
           mapContainerStyle={containerStyle}
           center={mapCenter}
           zoom={selectedLocation ? 10 : 8 }
-          onClick={handleMapClick}
+          onClick={propMapClick}
           options={mapOptions}
         >
           {selectedLocation && (

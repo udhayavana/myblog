@@ -9,7 +9,7 @@ const GoogleMapComponent = () => {
   const autocompleteRef = useRef(null);
   const [markers, setMarkers] = useState([]);
 
-  const googleMapsApiKey = 'AIzaSyBamFkhRtyeq4eonG3rT8FkwVJxViLW6tc';
+  const googleMapsApiKey = 'AIzaSyAMfacItdw_kQ-XVN3XvKKwZ-hLIDHYH-U';
 
   const containerStyle = {
     width: '100%',

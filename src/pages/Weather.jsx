@@ -1,7 +1,8 @@
 import { React ,useState } from 'react';
 import GoogleMapCompnent from '../components/GoogleMapCompnent';
-
+// import { GoogleMap, LoadScript, Marker, Circle, Autocomplete } from '@react-google-maps/api';
 const weatherApiKey='c98c1d11f7f9e85a8d4112bffc57d9b1';
+const googleMapsApiKey = 'AIzaSyAMfacItdw_kQ-XVN3XvKKwZ-hLIDHYH-U';
 
 const Weather = ()=> {
 
@@ -24,12 +25,12 @@ const Weather = ()=> {
         `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${weatherApiKey}&units=metric`
       );
       const data = await response.json();
-     //  setWeather(data);
+      setWeather(data);
     } catch (err) {
       console.error(err);
-     //  setError('Failed to fetch weather data.');
+       setError('Failed to fetch weather data.');
     }
-    // setLoading(false);
+    setLoading(false);
   };
 
     return (
@@ -38,11 +39,14 @@ const Weather = ()=> {
         <h2>Weather</h2>
         <p>*****</p>
       </div>
+
       {loading && (
         <div className="spinner-border text-primary mt-4" role="status">
           <span className="visually-hidden">Loading...</span>
         </div>
       )}
+
+
 
       {error && <div className="alert alert-danger mt-3">{error}</div>}
 
@@ -57,6 +61,7 @@ const Weather = ()=> {
           </div>
         </div>
       )}
+
       <GoogleMapCompnent propMapClick={handleMapClick} />
       </section>
     )

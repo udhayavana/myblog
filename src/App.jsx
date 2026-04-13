@@ -7,6 +7,7 @@ import {
   FaExternalLinkAlt,
   FaDownload,
 } from 'react-icons/fa'
+import workSetupSvg from './assets/work-setup.svg'
 
 const navLinks = [
   { id: 'hero', label: 'Home' },
@@ -14,40 +15,39 @@ const navLinks = [
   { id: 'skills', label: 'Skills' },
   { id: 'experience', label: 'Experience' },
 //  { id: 'projects', label: 'Projects' },
-  { id: 'contact', label: 'Contact' },
+//  { id: 'contact', label: 'Contact' },
 ]
 
-const skillGroups = [
+const skills = [
   {
-    domain: 'Frontend',
-    items: [
-      { name: 'Javascript', level: 80 },
-      { name: 'React Js', level: 40 }
-    ],
+    name: 'PHP',
+    usage: 'Server-side web development, backend logic, API development',
+    advantages: 'Widely used, large community, cost-effective hosting, rapid development',
   },
   {
-    domain: 'Backend',
-    items: [
-      { name: 'PHP', level: 92 },
-      { name: 'Python', level: 60 },
-      { name: 'Database : MySql', level: 90 },
-      { name: 'Node.js', level: 20 },
-    ],
+    name: 'Laravel',
+    usage: 'PHP framework for building robust web applications, MVC architecture',
+    advantages: 'Elegant syntax, built-in tools, security features, scalable',
   },
-  // {
-  //   domain: 'Cloud / DevOps',
-  //   items: [
-  //     { name: 'AWS', level: 90 },
-  //     { name: 'Docker / Kubernetes', level: 84 },
-  //     { name: 'Terraform', level: 80 },
-  //   ],
-  // },
   {
-    domain: 'Tools',
-    items: [
-      { name: 'Git & CI/CD', level: 60 },
-      { name: 'Jest / Testing', level: 30 },
-    ],
+    name: 'Python (Django , FastAPI)',
+    usage: 'Python frameworks for web development, RESTful APIs, and data-driven applications',
+    advantages: 'Django: Batteries-included, secure, scalable; FastAPI: High performance, easy to use, modern features',
+  },
+  {
+    name: 'JavaScript',
+    usage: 'Client-side scripting, interactive web features, DOM manipulation',
+    advantages: 'Runs in browsers, versatile, asynchronous programming, rich ecosystem',
+  },
+  {
+    name: 'React JS',
+    usage: 'Building dynamic user interfaces and single-page applications',
+    advantages: 'Component-based, virtual DOM, reusable components, strong ecosystem',
+  },
+  {
+    name: 'MySQL',
+    usage: 'Relational database management, data storage and retrieval',
+    advantages: 'Reliable, ACID-compliant, SQL standard, widely supported',
   },
 ]
 
@@ -114,6 +114,8 @@ const projects = [];
 const App = () => {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
   const [activeSection, setActiveSection] = useState('hero')
   const observer = useRef(null)
 
@@ -122,11 +124,35 @@ const App = () => {
     setForm((current) => ({ ...current, [name]: value }))
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    setSubmitted(true)
-    setForm({ name: '', email: '', message: '' })
-    window.setTimeout(() => setSubmitted(false), 4000)
+    setIsSubmitting(true)
+    setSubmitError('')
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        setSubmitted(true)
+        setForm({ name: '', email: '', message: '' })
+        window.setTimeout(() => setSubmitted(false), 4000)
+      } else {
+        setSubmitError(data.message || 'Failed to send message')
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error)
+      setSubmitError('Network error. Please try again later.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   useEffect(() => {
@@ -192,39 +218,57 @@ const App = () => {
       <main className="relative overflow-hidden">
         <div className="bg-spot absolute inset-x-0 top-0 h-80 opacity-80"></div>
 
-        <section id="hero" className="relative mx-auto flex min-h-[calc(100vh-88px)] max-w-7xl flex-col justify-center px-6 py-20">
-          <motion.div
-            initial={{ opacity: 0, y: 26 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: 'easeOut' }}
-            className="max-w-3xl"
-          >
-            <span className="text-sm uppercase tracking-[0.4em] text-cyan-400">
-              Senior Software Engineer · 10 Years
-            </span>
-            <h1 className="mt-6 text-5xl font-semibold tracking-tight text-white sm:text-6xl">
-              I architect scalable systems and ship products that matter.
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-              I design and deliver elegant digital experiences for marketplaces, finance, and enterprise teams — leading technical strategy, mentoring engineers, and driving measurable growth.
-            </p>
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              <a
-                href="#projects"
-                style={{display:'none'}} className="inline-flex items-center justify-center rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-slate-950 shadow-glow transition hover:bg-cyan-300"
-              >
-                View Work
-              </a>
-              <a
-                href="/UdhayavananS.pdf"
-                download
-                className="inline-flex items-center justify-center rounded-full border border-slate-700 bg-slate-900/90 px-6 py-3 text-sm font-semibold text-slate-100 transition hover:border-cyan-400 hover:text-cyan-300"
-              >
-                <FaDownload className="mr-2 h-4 w-4" />
-                Download Resume
-              </a>
-            </div>
-          </motion.div>
+        <section id="hero" className="relative mx-auto flex min-h-[calc(100vh-88px)] max-w-7xl items-center px-6 py-20">
+          <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+            <motion.div
+              initial={{ opacity: 0, y: 26 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, ease: 'easeOut' }}
+              className="flex flex-col justify-center"
+            >
+              <span className="text-sm uppercase tracking-[0.4em] text-cyan-400">
+                Senior Software Engineer · 10 Years
+              </span>
+              <h1 className="mt-6 text-5xl font-semibold tracking-tight text-white sm:text-6xl">
+                I architect scalable systems and ship products that matter.
+              </h1>
+              <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+                I design and deliver elegant digital experiences for marketplaces, finance, and enterprise teams — leading technical strategy, mentoring engineers, and driving measurable growth.
+              </p>
+              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+                <a
+                  href="#projects"
+                  style={{display:'none'}} className="inline-flex items-center justify-center rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-slate-950 shadow-glow transition hover:bg-cyan-300"
+                >
+                  View Work
+                </a>
+                <a
+                  href="/UdhayavananS.pdf"
+                  download
+                  className="inline-flex items-center justify-center rounded-full border border-slate-700 bg-slate-900/90 px-6 py-3 text-sm font-semibold text-slate-100 transition hover:border-cyan-400 hover:text-cyan-300"
+                >
+                  <FaDownload className="mr-2 h-4 w-4" />
+                  Download Resume
+                </a>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 26 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.9, ease: 'easeOut', delay: 0.2 }}
+              className="flex items-center justify-center lg:justify-end"
+            >
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-sky-500/20 blur-3xl rounded-full"></div>
+                <img
+                  src={workSetupSvg}
+                  alt="Late night coding setup with VS Code"
+                  className="relative w-full max-w-md h-auto rounded-2xl shadow-2xl"
+                />
+              </div>
+            </motion.div>
+          </div>
         </section>
 
         <section id="about" className="mx-auto max-w-7xl px-6 py-20">
@@ -276,36 +320,25 @@ const App = () => {
             <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <p className="text-sm uppercase tracking-[0.35em] text-cyan-300">Skills</p>
-                <h2 className="mt-3 text-3xl font-semibold text-white">Expertise grouped by domain.</h2>
+                <h2 className="mt-3 text-3xl font-semibold text-white">Skills by usage and advantage.</h2>
               </div>
               <p className="max-w-2xl text-slate-300">
-                Modern engineering capabilities for product, infrastructure, and growth — powered by measurable delivery and disciplined execution.
+                Modern engineering capabilities explained through how they’re used and what advantages they provide.
               </p>
             </div>
-            <div className="grid gap-6 lg:grid-cols-2">
-              {skillGroups.map((group) => (
-                <div key={group.domain} className="rounded-[2rem] border border-slate-800/90 bg-slate-900/80 p-8">
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.35em] text-cyan-300">
-                    {group.domain}
-                  </h3>
-                  <div className="mt-6 space-y-5">
-                    {group.items.map((item) => (
-                      <div key={item.name}>
-                        <div className="flex items-center justify-between text-sm text-slate-300">
-                          <span>{item.name}</span>
-                          <span>{item.level}%</span>
-                        </div>
-                        <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-800">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${item.level}%` }}
-                            viewport={{ once: true, amount: 0.4 }}
-                            transition={{ duration: 1.1, ease: 'easeOut' }}
-                            className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-sky-500"
-                          />
-                        </div>
-                      </div>
-                    ))}
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {skills.map((skill) => (
+                <div key={skill.name} className="rounded-[2rem] border border-slate-800/90 bg-slate-900/80 p-8">
+                  <p className="text-sm font-semibold uppercase tracking-[0.35em] text-cyan-300">{skill.name}</p>
+                  <div className="mt-6 space-y-4 text-slate-300">
+                    <div>
+                      <p className="text-sm font-semibold text-white">Usage</p>
+                      <p className="mt-2 text-base leading-7">{skill.usage}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-white">Advantages</p>
+                      <p className="mt-2 text-base leading-7">{skill.advantages}</p>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -428,10 +461,10 @@ const App = () => {
                 <div>
                   <p className="text-sm uppercase tracking-[0.35em] text-slate-500">Networks</p>
                   <div className="mt-4 flex items-center gap-4 text-slate-300">
-                    <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer" className="transition hover:text-cyan-300">
+                    <a href="https://www.linkedin.com/in/udhayavanan-sambath-88626125b" target="_blank" rel="noreferrer" className="transition hover:text-cyan-300">
                       <FaLinkedin className="h-6 w-6" />
                     </a>
-                    <a href="https://github.com/" target="_blank" rel="noreferrer" className="transition hover:text-cyan-300">
+                    <a href="https://github.com/udhayavana" target="_blank" rel="noreferrer" className="transition hover:text-cyan-300">
                       <FaGithub className="h-6 w-6" />
                     </a>
                     <a href="mailto:udhayavana@gmail.com" className="transition hover:text-cyan-300">
@@ -489,12 +522,16 @@ const App = () => {
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                   <button
                     type="submit"
-                    className="inline-flex items-center justify-center rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300"
+                    disabled={isSubmitting}
+                    className="inline-flex items-center justify-center rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Send Message
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
                   </button>
                   {submitted && (
-                    <span className="text-sm text-cyan-300">Message ready for follow-up.</span>
+                    <span className="text-sm text-green-400">Message sent successfully!</span>
+                  )}
+                  {submitError && (
+                    <span className="text-sm text-red-400">{submitError}</span>
                   )}
                 </div>
               </form>

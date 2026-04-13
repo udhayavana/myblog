@@ -13,7 +13,7 @@ const handleDone = () => {
 //       <img src={heroBg} alt="" data-aos="fade-in" className="" />
    
 const Home = () => {
-    return (  <section className="section hero">
+    return (  <section className="section hero dark-background">
 
     <div className="container" data-aos="fade-up" data-aos-delay="100">
     

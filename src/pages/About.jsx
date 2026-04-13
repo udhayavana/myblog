@@ -60,42 +60,38 @@ const About = () => {
 
       <div className="col-lg-6">
 
-        <div className="progress">
-          <span className="skill"><span>Php</span> <i className="val">90%</i></span>
-          <div className="progress-bar-wrap">
-            <div className="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
+        <div className="mb-8 p-4 border border-gray-200 rounded-lg bg-gray-50">
+          <h4 className="text-xl font-bold text-gray-800 mb-2">PHP</h4>
+          <p className="mb-2"><strong className="text-blue-600">Usage:</strong> Server-side web development, backend logic, API development</p>
+          <p><strong className="text-blue-600">Advantages:</strong> Widely used, large community, cost-effective hosting, rapid development</p>
         </div>
 
-        <div className="progress">
-          <span className="skill"><span>Laravel</span> <i className="val">70%</i></span>
-          <div className="progress-bar-wrap">
-            <div className="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
+        <div className="mb-8 p-4 border border-gray-200 rounded-lg bg-gray-50">
+          <h4 className="text-xl font-bold text-gray-800 mb-2">Laravel</h4>
+          <p className="mb-2"><strong className="text-blue-600">Usage:</strong> PHP framework for building robust web applications, MVC architecture</p>
+          <p><strong className="text-blue-600">Advantages:</strong> Elegant syntax, built-in tools, security features, scalable</p>
         </div>
 
-        <div className="progress">
-          <span className="skill"><span>JavaScript</span> <i className="val">50%</i></span>
-          <div className="progress-bar-wrap">
-            <div className="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
+        <div className="mb-8 p-4 border border-gray-200 rounded-lg bg-gray-50">
+          <h4 className="text-xl font-bold text-gray-800 mb-2">JavaScript</h4>
+          <p className="mb-2"><strong className="text-blue-600">Usage:</strong> Client-side scripting, interactive web features, DOM manipulation</p>
+          <p><strong className="text-blue-600">Advantages:</strong> Runs in browsers, versatile, asynchronous programming, rich ecosystem</p>
         </div>
 
       </div>
 
       <div className="col-lg-6">
 
-        <div className="progress">
-          <span className="skill"><span>React Js</span> <i className="val">40%</i></span>
-          <div className="progress-bar-wrap">
-            <div className="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
+        <div className="mb-8 p-4 border border-gray-200 rounded-lg bg-gray-50">
+          <h4 className="text-xl font-bold text-gray-800 mb-2">React JS</h4>
+          <p className="mb-2"><strong className="text-blue-600">Usage:</strong> Building dynamic user interfaces, single-page applications</p>
+          <p><strong className="text-blue-600">Advantages:</strong> Component-based, virtual DOM, reusable components, performance</p>
         </div>
-        <div className="progress">
-          <span className="skill"><span>MySql</span> <i className="val">80%</i></span>
-          <div className="progress-bar-wrap">
-            <div className="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
+
+        <div className="mb-8 p-4 border border-gray-200 rounded-lg bg-gray-50">
+          <h4 className="text-xl font-bold text-gray-800 mb-2">MySQL</h4>
+          <p className="mb-2"><strong className="text-blue-600">Usage:</strong> Relational database management, data storage and retrieval</p>
+          <p><strong className="text-blue-600">Advantages:</strong> Reliable, ACID compliance, SQL standard, widely supported</p>
         </div>
 
       </div>

@@ -5,12 +5,7 @@ const require = VPV_createRequire(import.meta.url);
 const __filename = VPV_fileURLToPath(import.meta.url);
 const __dirname = VPV_dirname(__filename);
 
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
   get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
 }) : x)(function(x) {
@@ -20,22 +15,6 @@ var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require
 var __commonJS = (cb, mod) => function __require2() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
 
 // node_modules/nodemailer/lib/fetch/cookies.js
 var require_cookies = __commonJS({
@@ -11232,7 +11211,7 @@ var require_nodemailer = __commonJS({
 });
 
 // api/contact.js
-var import_nodemailer = __toESM(require_nodemailer(), 1);
+var nodemailer = require_nodemailer();
 async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
@@ -11259,13 +11238,36 @@ async function handler(req, res) {
         message: "Please provide a valid email address"
       });
     }
-    const transporter = import_nodemailer.default.createTransport({
-      service: "gmail",
+    console.log("EMAIL_USER exists:", !!process.env.EMAIL_USER);
+    console.log("EMAIL_PASS exists:", !!process.env.EMAIL_PASS);
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      // true for 465, false for other ports
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
-      }
+      },
+      // Additional settings for serverless
+      pool: true,
+      maxConnections: 1,
+      maxMessages: 5,
+      rateDelta: 2e4,
+      // 20 seconds
+      rateLimit: 5
+      // 5 emails per rateDelta
     });
+    try {
+      await transporter.verify();
+      console.log("Transporter verified successfully");
+    } catch (verifyError) {
+      console.error("Transporter verification failed:", verifyError);
+      return res.status(500).json({
+        success: false,
+        message: "Email service configuration error"
+      });
+    }
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: "udhayavanan.s89@gmail.com",
@@ -11288,17 +11290,33 @@ async function handler(req, res) {
       `,
       replyTo: email
     };
-    await transporter.sendMail(mailOptions);
+    const sendResult = await Promise.race([
+      transporter.sendMail(mailOptions),
+      new Promise(
+        (_, reject) => setTimeout(() => reject(new Error("Email send timeout")), 8e3)
+      )
+    ]);
     console.log(`Email sent successfully from ${name} (${email})`);
+    console.log("Send result:", sendResult);
+    transporter.close();
     res.status(200).json({
       success: true,
       message: "Message sent successfully!"
     });
   } catch (error) {
-    console.error("Error sending email:", error);
+    console.error("Error sending email:", error.message);
+    console.error("Error stack:", error.stack);
+    let errorMessage = "Failed to send message. Please try again later.";
+    if (error.message.includes("Authentication failed")) {
+      errorMessage = "Email authentication failed. Please check credentials.";
+    } else if (error.message.includes("timeout")) {
+      errorMessage = "Email service timeout. Please try again.";
+    } else if (error.message.includes("ENOTFOUND")) {
+      errorMessage = "Email service unavailable. Please try again later.";
+    }
     res.status(500).json({
       success: false,
-      message: "Failed to send message. Please try again later."
+      message: errorMessage
     });
   }
 }

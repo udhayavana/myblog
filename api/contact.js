@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+const nodemailer = require('nodemailer');
 
 export default async function handler(req, res) {
   // Enable CORS
@@ -37,14 +37,38 @@ export default async function handler(req, res) {
       });
     }
 
-    // Create nodemailer transporter
+    // Log environment check
+    console.log('EMAIL_USER exists:', !!process.env.EMAIL_USER);
+    console.log('EMAIL_PASS exists:', !!process.env.EMAIL_PASS);
+
+    // Create nodemailer transporter with more reliable settings
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false, // true for 465, false for other ports
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
-      }
+      },
+      // Additional settings for serverless
+      pool: true,
+      maxConnections: 1,
+      maxMessages: 5,
+      rateDelta: 20000, // 20 seconds
+      rateLimit: 5 // 5 emails per rateDelta
     });
+
+    // Verify transporter configuration
+    try {
+      await transporter.verify();
+      console.log('Transporter verified successfully');
+    } catch (verifyError) {
+      console.error('Transporter verification failed:', verifyError);
+      return res.status(500).json({
+        success: false,
+        message: 'Email service configuration error'
+      });
+    }
 
     // Email options
     const mailOptions = {
@@ -70,10 +94,19 @@ export default async function handler(req, res) {
       replyTo: email
     };
 
-    // Send email
-    await transporter.sendMail(mailOptions);
+    // Send email with timeout
+    const sendResult = await Promise.race([
+      transporter.sendMail(mailOptions),
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Email send timeout')), 8000)
+      )
+    ]);
 
     console.log(`Email sent successfully from ${name} (${email})`);
+    console.log('Send result:', sendResult);
+
+    // Close transporter connection
+    transporter.close();
 
     res.status(200).json({
       success: true,
@@ -81,10 +114,23 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
-    console.error('Error sending email:', error);
+    console.error('Error sending email:', error.message);
+    console.error('Error stack:', error.stack);
+
+    // More specific error messages
+    let errorMessage = 'Failed to send message. Please try again later.';
+
+    if (error.message.includes('Authentication failed')) {
+      errorMessage = 'Email authentication failed. Please check credentials.';
+    } else if (error.message.includes('timeout')) {
+      errorMessage = 'Email service timeout. Please try again.';
+    } else if (error.message.includes('ENOTFOUND')) {
+      errorMessage = 'Email service unavailable. Please try again later.';
+    }
+
     res.status(500).json({
       success: false,
-      message: 'Failed to send message. Please try again later.'
+      message: errorMessage
     });
   }
 }

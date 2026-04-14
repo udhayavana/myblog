@@ -1,8 +1,9 @@
-import express from 'express';
-import cors from 'cors';
-import { rateLimit } from 'express-rate-limit';
-import { Resend } from 'resend';
-import 'dotenv/config';
+const express = require('express');
+const nodemailer = require('nodemailer');
+const cors = require('cors');
+const rateLimit = require('express-rate-limit');
+const resend = require('resend');
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -23,14 +24,11 @@ const limiter = rateLimit({
 app.use('/api/contact', limiter);
 
 
-const resendObj = new Resend(process.env.RESEND_API_KEY);
+const resend = new resend(process.env.RESEND_API_KEY);
 
 const reSendEmail = async ({from,to,subject,html}) => {
-  console.log(from);
-  console.log(to);
-  console.log(subject);
   try {
-    const { data, error } = await resendObj.emails.send({
+    const { data, error } = await resend.emails.send({
       from: from,
       to,
       subject,
@@ -98,7 +96,7 @@ app.post('/api/contact', async (req, res) => {
     };
 
     // Send email
-    const result = await reSendEmail(mailOptions);
+    const result = await reSendEmail({mailOptions});
     
     if (!result.success) {
       console.error('Error sending email:', result.error);

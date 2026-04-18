@@ -1,9 +1,9 @@
 {
   "rewrites": [
-    { "source": "/((?!/).*)", "destination": "/" }
+    { "source": "/((?!_api|assets/).*)", "destination": "/" }
   ],
   "functions": {
-    "api/contact.js": {
+    "_api/contact.js": {
       "maxDuration": 15
     }
   },

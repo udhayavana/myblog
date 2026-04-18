@@ -11210,7 +11210,7 @@ var require_nodemailer = __commonJS({
   }
 });
 
-// api/contact.js
+// _api/contact.js
 var nodemailer = require_nodemailer();
 async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");

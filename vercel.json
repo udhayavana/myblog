@@ -1,8 +1,5 @@
 {
-  "functions": {
-    "_api/contact.js": {
-      "maxDuration": 15
-    }
-  },
-  "regions": ["iad1"]
+ "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }

@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/((?!/|assets/).*)", "destination": "/" }
+    { "source": "/((?!/).*)", "destination": "/" }
   ],
   "functions": {
     "api/contact.js": {

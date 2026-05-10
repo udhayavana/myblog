@@ -470,10 +470,84 @@ const App = () => {
                     udhayavana@gmail.com
                   </a>
                 </div>
-                
+                <div>
+                  <p className="text-sm uppercase tracking-[0.35em] text-slate-500">Networks</p>
+                  <div className="mt-4 flex items-center gap-4 text-slate-300">
+                    <a href="https://www.linkedin.com/in/udhayavanan-sambath-88626125b" target="_blank" rel="noreferrer" className="transition hover:text-cyan-300">
+                      <FaLinkedin className="h-6 w-6" />
+                    </a>
+                    <a href="https://github.com/udhayavana" target="_blank" rel="noreferrer" className="transition hover:text-cyan-300">
+                      <FaGithub className="h-6 w-6" />
+                    </a>
+                    <a href="mailto:udhayavana@gmail.com" className="transition hover:text-cyan-300">
+                      <FaEnvelope className="h-6 w-6" />
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
-           
+            <div className="rounded-[2rem] border border-slate-800/90 bg-slate-900/80 p-10 shadow-glow hidden">
+              <p className="text-sm uppercase tracking-[0.35em] text-cyan-300">Say hello</p>
+              <h3 className="mt-6 text-2xl font-semibold text-white">Let’s start something meaningful.</h3>
+              <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
+                <div>
+                  <label className="text-sm font-medium text-slate-300" htmlFor="name">
+                    Name
+                  </label>
+                  <input
+                    id="name"
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    placeholder="Your name"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-slate-300" htmlFor="email">
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    placeholder="you@example.com"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-slate-300" htmlFor="message">
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="5"
+                    value={form.message}
+                    onChange={handleChange}
+                    placeholder="Tell me about your next project..."
+                    required
+                  />
+                </div>
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="inline-flex items-center justify-center rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                  </button>
+                  {submitted && (
+                    <span className="text-sm text-green-400">Message sent successfully!</span>
+                  )}
+                  {submitError && (
+                    <span className="text-sm text-red-400">{submitError}</span>
+                  )}
+                </div>
+              </form>
+            </div>
           </motion.div>
         </section>
       </main>

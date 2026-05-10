@@ -449,13 +449,13 @@ const App = () => {
           </motion.div>
         </section>
 
-        <section id="contact" className="mx-auto max-w-7xl px-6 py-20">
+        <section id="contact" className="w-full bg-slate-950 px-6 py-20">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr]"
+            className="mx-auto grid max-w-7xl gap-10"
           >
             <div className="rounded-[2rem] border border-slate-800/90 bg-slate-900/80 p-10 shadow-glow">
               <p className="text-sm uppercase tracking-[0.35em] text-cyan-300">Contact</p>

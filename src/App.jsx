@@ -448,7 +448,6 @@ const App = () => {
             </div>
           </motion.div>
         </section>
-
         <section id="contact" className="w-full bg-slate-950 px-6 py-20">
           <motion.div
             initial={{ opacity: 0, y: 24 }}

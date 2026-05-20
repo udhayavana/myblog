@@ -10,6 +10,7 @@ import {
   FaTimes,
 } from 'react-icons/fa'
 import workSetupSvg from './assets/work-setup.svg'
+import resumePdf from './assets/Udhayavanan_S_Resume.pdf'
 
 const navLinks = [
   { id: 'hero', label: 'Home' },
@@ -208,9 +209,6 @@ const App = () => {
     setIsMobileMenuOpen(false)
   }
 
-  const encodedResumePath = 'Li9hc3NldHMvVWRoYXlhdmFuYW5fU19SZXN1bWUucGRm'
-  const getResumeUrl = () => new URL(atob(encodedResumePath), import.meta.url).href
-
   return (
     <div className="bg-slate-950 text-slate-100">
       <header className="sticky top-0 z-50 border-b border-slate-800/70 bg-slate-950/95 backdrop-blur-xl relative">
@@ -314,7 +312,7 @@ const App = () => {
                   View Work
                 </a>
                 <a
-                  href={getResumeUrl()}
+                  href={resumePdf}
                   download
                   className="inline-flex items-center justify-center rounded-full border border-slate-700 bg-slate-900/90 px-6 py-3 text-sm font-semibold text-slate-100 transition hover:border-cyan-400 hover:text-cyan-300"
                 >

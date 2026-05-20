@@ -6,6 +6,8 @@ import {
   FaEnvelope,
   FaExternalLinkAlt,
   FaDownload,
+  FaBars,
+  FaTimes,
 } from 'react-icons/fa'
 import workSetupSvg from './assets/work-setup.svg'
 
@@ -117,6 +119,7 @@ const App = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
   const [activeSection, setActiveSection] = useState('hero')
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const observer = useRef(null)
 
   const handleChange = (event) => {
@@ -186,14 +189,44 @@ const App = () => {
     }
   }, [])
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024 && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [isMobileMenuOpen])
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(prev => !prev)
+  }
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false)
+  }
+
+  const encodedResumePath = 'Li9hc3NldHMvVWRoYXlhdmFuYW5fU19SZXN1bWUucGRm'
+  const getResumeUrl = () => new URL(atob(encodedResumePath), import.meta.url).href
+
   return (
     <div className="bg-slate-950 text-slate-100">
-      <header className="sticky top-0 z-50 border-b border-slate-800/70 bg-slate-950/95 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 border-b border-slate-800/70 bg-slate-950/95 backdrop-blur-xl relative">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <a href="#hero" className="text-sm font-semibold uppercase tracking-[0.35em] text-cyan-400">
             UDHAYAVANAN
           </a>
-          <nav className="hidden items-center gap-8 text-sm text-slate-400 md:flex">
+          <button
+            type="button"
+            onClick={toggleMobileMenu}
+            className="absolute right-6 top-2 inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 bg-slate-900/90 text-slate-100 transition hover:border-cyan-400 hover:text-cyan-300 lg:static lg:mr-0 lg:h-auto lg:w-auto lg:rounded-full lg:border-none lg:bg-transparent lg:p-0 lg:text-slate-100 lg:hover:bg-slate-900/90 lg:hidden"
+            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+          >
+            {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+          </button>
+          <nav className="hidden items-center gap-8 text-sm text-slate-400 lg:flex">
             {navLinks.map((link) => (
               <a 
                 key={link.id} 
@@ -212,19 +245,45 @@ const App = () => {
            >
             Contact
           </a> */}
-          <nav className="hidden items-center gap-8 text-sm text-slate-400 md:flex">
-          <a href="https://www.linkedin.com/in/udhayavanan-sambath-88626125b" target="_blank" rel="noreferrer" className="transition hover:text-cyan-300">
-                      <FaLinkedin />
-                    </a>
-                    <a href="https://github.com/udhayavana" target="_blank" rel="noreferrer" 
-                    className="transition hover:text-cyan-300">
-                      <FaGithub />
-                    </a>
-                    <a href="mailto:udhayavana@gmail.com" className="transition hover:text-cyan-300">
-                      <FaEnvelope />
-                    </a>
-            </nav>
+          <nav className="hidden items-center gap-8 text-sm text-slate-400 lg:flex">
+            <a href="https://www.linkedin.com/in/udhayavanan-sambath-88626125b" target="_blank" rel="noreferrer" className="transition hover:text-cyan-300">
+              <FaLinkedin />
+            </a>
+            <a href="https://github.com/udhayavana" target="_blank" rel="noreferrer" className="transition hover:text-cyan-300">
+              <FaGithub />
+            </a>
+            <a href="mailto:udhayavana@gmail.com" className="transition hover:text-cyan-300">
+              <FaEnvelope />
+            </a>
+          </nav>
         </div>
+        {isMobileMenuOpen && (
+          <div className="lg:hidden border-t border-slate-800/70 bg-slate-950/95 px-6 py-4">
+            <div className="flex flex-col gap-3">
+              {navLinks.map((link) => (
+                <a
+                  key={link.id}
+                  href={`#${link.id}`}
+                  onClick={closeMobileMenu}
+                  className="transition hover:text-cyan-300 text-slate-200"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+            <div className="mt-4 flex items-center gap-4 text-slate-400">
+              <a href="https://www.linkedin.com/in/udhayavanan-sambath-88626125b" target="_blank" rel="noreferrer" className="transition hover:text-cyan-300">
+                <FaLinkedin />
+              </a>
+              <a href="https://github.com/udhayavana" target="_blank" rel="noreferrer" className="transition hover:text-cyan-300">
+                <FaGithub />
+              </a>
+              <a href="mailto:udhayavana@gmail.com" className="transition hover:text-cyan-300">
+                <FaEnvelope />
+              </a>
+            </div>
+          </div>
+        )}
       </header>
 
       <main className="relative overflow-hidden">
@@ -255,7 +314,7 @@ const App = () => {
                   View Work
                 </a>
                 <a
-                  href="/UdhayavananS.pdf"
+                  href={getResumeUrl()}
                   download
                   className="inline-flex items-center justify-center rounded-full border border-slate-700 bg-slate-900/90 px-6 py-3 text-sm font-semibold text-slate-100 transition hover:border-cyan-400 hover:text-cyan-300"
                 >

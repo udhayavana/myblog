@@ -5,12 +5,12 @@ import {
   FaLinkedin,
   FaEnvelope,
   FaExternalLinkAlt,
-  FaDownload,
   FaBars,
   FaTimes,
 } from 'react-icons/fa'
 import workSetupSvg from './assets/work-setup.svg'
 import resumePdf from './assets/Udhayavanan_S_Resume.pdf'
+import PDFViewer from './components/PDFViewer.jsx'
 
 const navLinks = [
   { id: 'hero', label: 'Home' },
@@ -312,12 +312,11 @@ const App = () => {
                   View Work
                 </a>
                 <a
-                  href={resumePdf}
-                  download
+                  href="#resume"
                   className="inline-flex items-center justify-center rounded-full border border-slate-700 bg-slate-900/90 px-6 py-3 text-sm font-semibold text-slate-100 transition hover:border-cyan-400 hover:text-cyan-300"
                 >
-                  <FaDownload className="mr-2 h-4 w-4" />
-                  Download Resume
+                  <FaExternalLinkAlt className="mr-2 h-4 w-4" />
+                  View Resume
                 </a>
               </div>
             </motion.div>
@@ -376,6 +375,10 @@ const App = () => {
               </ul>
             </div>
           </motion.div>
+        </section>
+
+        <section id="resume" className="mx-auto max-w-4xl px-6 py-16">
+          <PDFViewer pdfUrl={resumePdf} />
         </section>
 
         <section id="skills" className="mx-auto max-w-7xl px-6 py-20">

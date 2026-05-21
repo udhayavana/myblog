@@ -1,4 +1,4 @@
-import pdfUrl from '/UdhayavananS.pdf';
+import pdfUrl from '../assets/UdhayavananS.pdf';
 import PdfViewer from '../components/PdfViewer';
 
 const Resume = () =>{

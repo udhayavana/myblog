@@ -62,14 +62,14 @@ function PdfViewer({ pdfUrl }) {
   return (
     <div className="pdf-viewer-card">
       <div className="pdf-viewer-header">
-        <div>
+        { /* <div>
           <div className="pdf-viewer-title">Preview Resume</div>
         </div>
         <div className="pdf-viewer-info">
           <span>{pageNumber}</span>
           <span className="divider">/</span>
           <span>{numPages || '--'}</span>
-        </div>
+        </div> */ }
       </div>
 
       <div className="pdf-viewer-toolbar">

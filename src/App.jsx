@@ -9,7 +9,7 @@ import {
   FaTimes,
 } from 'react-icons/fa'
 import workSetupSvg from './assets/work-setup.svg'
-import resumePdf from './assets/Udhayavanan_S_Resume.pdf'
+import resumePdf from './assets/Udhayavanan_S_2026_FullStack.pdf'
 import PDFViewer from './components/PDFViewer.jsx'
 
 const navLinks = [
